@@ -1,12 +1,12 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import type { Agent } from "../../types";
-import { agentService } from "../../services";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import type { Agent } from "@/types";
+import { agentService } from "@/services";
 
 interface AgentState {
   agents: Agent[];
   loading: boolean;
   error: string | null;
-  agentLoadingStates: Record<string, boolean>; // Individual agent loading states
+  agentLoadingStates: Record<string, boolean>;
 }
 
 const initialState: AgentState = {

@@ -1,20 +1,20 @@
+import type { Agent } from "@/types";
 import React, { memo, useMemo } from "react";
 import { Row, Col, Empty, Alert } from "antd";
+
 import AgentCard from "./AgentCard";
 import AgentCardSkeleton from "./AgentCardSkeleton";
-import type { Agent } from "@/types";
-
 interface AgentListProps {
   agents: Agent[];
   loading: boolean;
   error: string | null;
-  agentLoadingStates?: Record<string, boolean>; // Individual agent loading states
+  agentLoadingStates?: Record<string, boolean>;
   onStatusChange?: (
     agentId: string,
     status: "Running" | "Idle" | "Error"
   ) => void;
   onViewDetails?: (agentId: string) => void;
-  onWorkflowClick?: (agentId: string) => void; // New callback for workflow navigation
+  onWorkflowClick?: (agentId: string) => void;
 }
 
 const AgentList: React.FC<AgentListProps> = memo(
@@ -27,7 +27,6 @@ const AgentList: React.FC<AgentListProps> = memo(
     onViewDetails,
     onWorkflowClick,
   }) => {
-    // Memoize the skeleton array to prevent unnecessary re-renders
     const skeletonArray = useMemo(() => Array.from({ length: 8 }), []);
 
     if (loading) {

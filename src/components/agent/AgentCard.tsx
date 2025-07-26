@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import { Card, Typography, Tooltip, Button, Avatar } from "antd";
+import React, { useCallback, useMemo } from "react";
 import {
   PlayCircleOutlined,
   PauseCircleOutlined,
@@ -9,18 +8,19 @@ import {
 } from "@ant-design/icons";
 import type { Agent } from "@/types";
 import { formatDate } from "@/utils";
+import { Card, Typography, Tooltip, Button, Avatar } from "antd";
 
 const { Text, Title } = Typography;
 
 interface AgentCardProps {
   agent: Agent;
-  isLoading?: boolean; // Individual loading state for this agent
+  isLoading?: boolean;
   onStatusChange?: (
     agentId: string,
     status: "Running" | "Idle" | "Error"
   ) => void;
   onViewDetails?: (agentId: string) => void;
-  onWorkflowClick?: (agentId: string) => void; // New callback for workflow navigation
+  onWorkflowClick?: (agentId: string) => void;
 }
 
 const AgentCard: React.FC<AgentCardProps> = React.memo(
@@ -31,19 +31,18 @@ const AgentCard: React.FC<AgentCardProps> = React.memo(
     onViewDetails,
     onWorkflowClick,
   }) => {
-    // Generate consistent avatar seed based on agent ID
     const avatarSeed = useMemo(() => {
       return agent.id.split("-").pop() || "1";
     }, [agent.id]);
 
-    const handleStatusToggle = React.useCallback(() => {
+    const handleStatusToggle = useCallback(() => {
       if (!onStatusChange) return;
 
       const newStatus = agent.status === "Running" ? "Idle" : "Running";
       onStatusChange(agent.id, newStatus);
     }, [agent.status, agent.id, onStatusChange]);
 
-    const handleViewDetails = React.useCallback(() => {
+    const handleViewDetails = useCallback(() => {
       if (onViewDetails) {
         onViewDetails(agent.id);
       }
@@ -55,7 +54,6 @@ const AgentCard: React.FC<AgentCardProps> = React.memo(
       }
     }, [agent.id, onWorkflowClick]);
 
-    // Memoize the avatar URL
     const avatarUrl = useMemo(() => {
       return `https://api.dicebear.com/7.x/miniavs/svg?seed=${avatarSeed}`;
     }, [avatarSeed]);
@@ -118,7 +116,6 @@ const AgentCard: React.FC<AgentCardProps> = React.memo(
         ]}
       >
         <div className="flex flex-col h-full">
-          {/* Header Section - Fixed Height */}
           <div className="mb-4 h-[80px]">
             <div className="flex flex-col items-start gap-1">
               <div className="flex items-center gap-2 min-w-0">
@@ -146,17 +143,6 @@ const AgentCard: React.FC<AgentCardProps> = React.memo(
               </Text>
             </div>
           </div>
-
-          {/* Status Tag - Fixed Position */}
-          {/* <div className="mb-4">
-          <Tag
-            color={getStatusColor(agent.status)}
-            icon={getStatusIcon(agent.status)}
-            className="text-xs"
-          >
-            {getStatusText(agent.status)}
-          </Tag>
-        </div> */}
 
           {/* Agent Details Section - Fixed Height */}
           <div className="flex-grow space-y-3 min-h-[120px]">
@@ -212,7 +198,7 @@ const AgentCard: React.FC<AgentCardProps> = React.memo(
             </div>
           </div>
 
-          {/* Active Status Indicator - Fixed at Bottom */}
+          {/* Active Status Indicator */}
           <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-200 dark:border-gray-700">
             <Text
               type="secondary"

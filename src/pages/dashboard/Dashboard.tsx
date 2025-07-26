@@ -1,13 +1,14 @@
-import React, { useState, useCallback, useMemo } from "react";
+import { App, Skeleton } from "antd";
+import { agentService } from "@/services";
+import { useNavigate } from "react-router-dom";
+import type { Agent, ExecutionRecord } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { fetchAgents, updateAgentStatus } from "@/store/slices/agentSlice";
+
 import AgentList from "@/components/agent/AgentList";
 import AgentSearch from "@/components/agent/AgentSearch";
 import AgentDetailModal from "@/components/agent/AgentDetailModal";
-import { agentService } from "@/services";
-import { App, Skeleton } from "antd";
-import { useNavigate } from "react-router-dom";
-import type { Agent, ExecutionRecord } from "@/types";
 
 const Dashboard: React.FC = () => {
   const { notification } = App.useApp();
@@ -25,7 +26,7 @@ const Dashboard: React.FC = () => {
     []
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Only fetch agents if they haven't been loaded yet
     if (agents.length === 0 && !loading) {
       dispatch(fetchAgents());
@@ -33,7 +34,7 @@ const Dashboard: React.FC = () => {
   }, [dispatch, agents.length, loading]);
 
   // Update filtered agents when agents change
-  React.useEffect(() => {
+  useEffect(() => {
     setFilteredAgents(agents);
   }, [agents]);
 
@@ -97,7 +98,6 @@ const Dashboard: React.FC = () => {
       const agent = getAgentById(agentId);
       if (!agent) return;
 
-      // Show success notification
       notification.success({
         message: "Agent Deleted",
         description: `Agent "${agent.name}" deleted successfully.`,
@@ -105,7 +105,6 @@ const Dashboard: React.FC = () => {
         duration: 3,
       });
 
-      // Close modal if the deleted agent was the selected one
       if (selectedAgent?.id === agentId) {
         setModalVisible(false);
         setSelectedAgent(null);
@@ -159,11 +158,8 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
-      {/* Main container with responsive padding */}
       <div className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
-        {/* Content wrapper with max width and centered alignment */}
         <div className="max-w-7xl mx-auto space-y-8">
-          {/* Header section with proper spacing */}
           <div className="space-y-4">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
               Dashboard
@@ -174,9 +170,7 @@ const Dashboard: React.FC = () => {
             </p>
           </div>
 
-          {/* Main content area with proper spacing */}
           <div className="space-y-6">
-            {/*  Content grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Stats card */}
               <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
@@ -242,9 +236,6 @@ const Dashboard: React.FC = () => {
                   <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">
                     AI Agents
                   </h2>
-                  {/* <div className="text-sm text-gray-600 dark:text-gray-400">
-                    {!loading && `${filteredAgents.length} of ${agents.length} agents`}
-                  </div> */}
                 </div>
 
                 <AgentList

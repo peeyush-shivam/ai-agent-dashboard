@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import type { Theme } from "../../contexts/ThemeContext";
-import { ThemeContext } from "../../contexts/ThemeContext";
+import type { Theme } from "@/contexts/ThemeContext";
+import { ThemeContext } from "@/contexts/ThemeContext";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -14,13 +14,9 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   });
 
   useEffect(() => {
-    // Save theme to localStorage whenever it changes
     localStorage.setItem("theme", theme);
-
-    // Apply theme to document for CSS variables
     document.documentElement.setAttribute("data-theme", theme);
 
-    // Update html classes for Tailwind dark mode
     const html = document.documentElement;
     if (theme === "dark") {
       html.classList.add("dark");
@@ -33,12 +29,15 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  const value = {
-    theme,
-    toggleTheme,
-    isDark: theme === "dark",
-    isLight: theme === "light",
-  };
+  const value = React.useMemo(
+    () => ({
+      theme,
+      toggleTheme,
+      isDark: theme === "dark",
+      isLight: theme === "light",
+    }),
+    [theme, toggleTheme]
+  );
 
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>

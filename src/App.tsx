@@ -1,12 +1,13 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Provider } from "react-redux";
 import { store } from "./store";
+import { App as AntApp } from "antd";
+import { Suspense, lazy } from "react";
+import { Provider } from "react-redux";
+import { ThemeProvider } from "./components/providers/ThemeProvider";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Layout from "./components/layout/Layout";
 import Dashboard from "./pages/dashboard/Dashboard";
 import ScrollToTop from "./components/common/ScrollToTop";
-import { App as AntApp } from "antd";
-import { Suspense, lazy } from "react";
-import { ThemeProvider } from "./components/providers/ThemeProvider";
 
 // Lazy load the Workflow component since it's heavy with ReactFlow
 const Workflow = lazy(() => import("./pages/workflow/Workflow"));

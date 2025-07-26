@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from "react";
+import type { Agent } from "@/types";
 import { Input, Select, Card } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
-import type { Agent } from "@/types";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -47,23 +47,23 @@ const AgentSearch: React.FC<AgentSearchProps> = ({
   }, [agents, searchText, statusFilter, creatorFilter]);
 
   // Update parent component when filters change
-  React.useEffect(() => {
+  useEffect(() => {
     onSearchChange(filteredAgents);
   }, [filteredAgents, onSearchChange]);
 
-  const handleSearch = React.useCallback((value: string) => {
+  const handleSearch = useCallback((value: string) => {
     setSearchText(value);
   }, []);
 
-  const handleStatusFilter = React.useCallback((value: string) => {
+  const handleStatusFilter = useCallback((value: string) => {
     setStatusFilter(value);
   }, []);
 
-  const handleCreatorFilter = React.useCallback((value: string) => {
+  const handleCreatorFilter = useCallback((value: string) => {
     setCreatorFilter(value);
   }, []);
 
-  const clearFilters = React.useCallback(() => {
+  const clearFilters = useCallback(() => {
     setSearchText("");
     setStatusFilter("all");
     setCreatorFilter("all");
@@ -72,7 +72,6 @@ const AgentSearch: React.FC<AgentSearchProps> = ({
   return (
     <Card className="mb-6">
       <div className="space-y-4">
-        {/* Search and Filter Header */}
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white">
             Search & Filter
@@ -82,7 +81,6 @@ const AgentSearch: React.FC<AgentSearchProps> = ({
           </span>
         </div>
 
-        {/* Search and Filter Controls */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Text Search */}
           <div>
@@ -93,9 +91,7 @@ const AgentSearch: React.FC<AgentSearchProps> = ({
               placeholder="Search by name or description..."
               value={searchText}
               onChange={(e) => handleSearch(e.target.value)}
-              onSearch={handleSearch}
               allowClear
-              // prefix={<SearchOutlined className="text-gray-400" />}
               className="w-full"
             />
           </div>

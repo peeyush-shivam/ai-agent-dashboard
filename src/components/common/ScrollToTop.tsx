@@ -1,11 +1,8 @@
 import React from "react";
-import { useScrollToTop } from "../../hooks";
+import { useScrollToTop } from "@/hooks";
 
-/**
- * Component that automatically scrolls to the top of the page
- * whenever the route changes. This component doesn't render anything
- * but uses the useScrollToTop hook to handle the scrolling behavior.
- */
+// Component that automatically scrolls to the top of the page the route changes
+
 const ScrollToTop: React.FC = () => {
   useScrollToTop();
 

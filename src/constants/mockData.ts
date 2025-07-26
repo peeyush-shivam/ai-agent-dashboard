@@ -1,4 +1,4 @@
-import type { Agent, ExecutionRecord } from "../types";
+import type { Agent, ExecutionRecord } from "@/types";
 
 export const mockAgents: Agent[] = [
   {

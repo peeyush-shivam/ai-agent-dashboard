@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import agentReducer from "./slices/agentSlice";
+
 import uiReducer from "./slices/uiSlice";
+import agentReducer from "./slices/agentSlice";
 import workflowReducer from "./slices/workflowSlice";
 
 export const store = configureStore({

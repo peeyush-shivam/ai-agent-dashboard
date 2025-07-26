@@ -21,33 +21,15 @@ import {
   selectEdges,
   clearWorkflow,
 } from "@/store/slices/workflowSlice";
-import StartNode from "@/components/workflow/StartNode";
-import EndNode from "@/components/workflow/EndNode";
-import ProcessNode from "@/components/workflow/ProcessNode";
-import DecisionNode from "@/components/workflow/DecisionNode";
 import { Button, message, Tooltip, App } from "antd";
-import { CirclePlay, Cpu, SquareFunction, CirclePause } from "lucide-react";
+import {
+  GRID_SIZE,
+  PRO_OPTIONS,
+  NODE_TYPES,
+  NODE_BUTTONS,
+  Z_INDICES,
+} from "@/constants/workflow";
 import "reactflow/dist/style.css";
-
-// Constants
-const GRID_SIZE = 20;
-const PRO_OPTIONS = { hideAttribution: true };
-
-// Node types configuration
-const NODE_TYPES = {
-  startNode: StartNode,
-  endNode: EndNode,
-  processNode: ProcessNode,
-  decisionNode: DecisionNode,
-} as const;
-
-// Node buttons configuration
-const NODE_BUTTONS = [
-  { type: "startNode", label: "Start Node", icon: CirclePlay },
-  { type: "processNode", label: "Process Node", icon: Cpu },
-  { type: "decisionNode", label: "Decision Node", icon: SquareFunction },
-  { type: "endNode", label: "End Node", icon: CirclePause },
-] as const;
 
 const Workflow: React.FC = () => {
   const { notification } = App.useApp();
@@ -62,8 +44,8 @@ const Workflow: React.FC = () => {
 
   // Memoized handlers
   const handleBack = useCallback(() => {
-    navigate("/");
     dispatch(clearWorkflow());
+    navigate("/");
   }, [navigate, dispatch]);
 
   const handleSave = useCallback(() => {
@@ -79,10 +61,7 @@ const Workflow: React.FC = () => {
         duration: 3,
       });
 
-      // Clear the workflow
       dispatch(clearWorkflow());
-
-      // Navigate back to dashboard
       navigate("/");
     } catch (error) {
       console.error("Error saving workflow:", error);
@@ -190,7 +169,7 @@ const Workflow: React.FC = () => {
           <Tooltip
             key={button.type}
             title={button.label}
-            zIndex={9999}
+            zIndex={Z_INDICES.TOOLBAR}
             placement="bottom"
           >
             <div
@@ -211,22 +190,28 @@ const Workflow: React.FC = () => {
 
   return (
     <div className="h-screen w-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
-      {/* Floating Back Button - Top Left */}
-      <div className="fixed top-4 left-4 z-[9999]">
+      <div
+        className="fixed top-4 left-4 z-[9999]"
+        style={{ zIndex: Z_INDICES.BACK_BUTTON }}
+      >
         <Button onClick={handleBack} icon={<ArrowLeftOutlined />}>
           Back
         </Button>
       </div>
 
-      {/* Floating Save Button - Top Right */}
-      <div className="fixed top-4 right-4 z-[9999]">
+      <div
+        className="fixed top-4 right-4 z-[9999]"
+        style={{ zIndex: Z_INDICES.SAVE_BUTTON }}
+      >
         <Button type="primary" onClick={handleSave} icon={<SaveOutlined />}>
           Save
         </Button>
       </div>
 
-      {/* Simple Toolbar - Top Center */}
-      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-[9998]">
+      <div
+        className="fixed top-4 left-1/2 transform -translate-x-1/2 z-[9998]"
+        style={{ zIndex: Z_INDICES.TOOLBAR }}
+      >
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 px-4 py-3">
           <div className="flex items-center space-x-3">{toolbarButtons}</div>
         </div>
