@@ -20,14 +20,18 @@ export interface ExecutionRecord {
 }
 
 // Workflow Types
+export interface WorkflowNodeData {
+  id: string;
+  nodeType: string;
+  inputName?: string;
+  [key: string]: unknown;
+}
+
 export interface WorkflowNode {
   id: string;
-  type: "Start" | "Process" | "Decision" | "End";
+  type: "startNode" | "processNode" | "decisionNode" | "endNode";
   position: { x: number; y: number };
-  data: {
-    label: string;
-    description?: string;
-  };
+  data: WorkflowNodeData;
 }
 
 export interface WorkflowEdge {
@@ -50,18 +54,4 @@ export interface Workflow {
 export interface ModalState {
   agentDetail: boolean;
   deleteConfirmation: boolean;
-}
-
-export interface SearchState {
-  query: string;
-  filteredAgents: Agent[];
-}
-
-// App State
-export interface AppState {
-  agents: Agent[];
-  workflows: Workflow[];
-  modals: ModalState;
-  search: SearchState;
-  theme: "light" | "dark";
 }

@@ -2,6 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom styles for Ant Design components in dark mode */
+.agent-card {
+  @apply transition-all duration-200;
+  height: 100%;
+}
+
+.agent-card:hover {
+  @apply shadow-lg transform -translate-y-1;
+}
+
+/* Dark mode overrides for Ant Design */
+.dark .ant-card {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.dark .ant-card-head {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.dark .ant-card-body {
+  @apply bg-gray-800;
+}
+
+.dark .ant-typography {
+  @apply text-white;
+}
+
+/* Action button theming */
+.dark .ant-card-actions {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.dark .ant-card-actions > li {
+  @apply border-gray-700;
+}
+
+.dark .ant-card-actions .ant-btn {
+  @apply text-gray-300 hover:text-blue-400 hover:bg-gray-700;
+}
+
+.dark .ant-card-actions .ant-btn:hover {
+  @apply text-blue-400 bg-gray-700;
+}
+
+.dark .ant-card-actions .ant-btn:disabled {
+  @apply text-gray-500 hover:text-gray-500 hover:bg-transparent;
+}
+
+/* Light mode action buttons */
+.ant-card-actions .ant-btn {
+  @apply text-gray-600 hover:text-blue-600;
+}
+
+.ant-card-actions .ant-btn:hover {
+  @apply text-blue-600 bg-gray-50;
+}
+
+.ant-card-actions .ant-btn:disabled {
+  @apply text-gray-400 hover:text-gray-400 hover:bg-transparent;
+}
+
+.dark .ant-empty {
+  @apply text-gray-400;
+}
+
+.dark .ant-spin {
+  @apply text-blue-400;
+}
+
+.dark .ant-alert {
+  @apply bg-red-900/20 border-red-800;
+}
+
+.dark .ant-alert-message {
+  @apply text-red-300;
+}
+
+.dark .ant-alert-description {
+  @apply text-red-400;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -9,5 +90,196 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* Dark mode overrides for Ant Design components */
+.dark .ant-card {
+  background-color: rgb(31 41 55) !important;
+  border-color: rgb(55 65 81) !important;
+}
+
+.dark .ant-typography {
+  color: rgb(243 244 246) !important;
+}
+
+.dark .ant-btn:not(.ant-card-actions .ant-btn) {
+  border-color: rgb(75 85 99) !important;
+}
+
+.dark .ant-alert {
+  background-color: rgb(31 41 55) !important;
+  border-color: rgb(75 85 99) !important;
+}
+
+.dark .ant-spin {
+  color: rgb(59 130 246) !important;
+}
+
+/* Form input styling for dark mode */
+.dark .ant-input:not(.ant-input-search .ant-input),
+.dark .ant-input-affix-wrapper:not(.ant-input-search .ant-input-affix-wrapper),
+.dark .ant-input-group-addon {
+  background-color: rgb(75 85 99) !important;
+  border-color: rgb(107 114 128) !important;
+  color: rgb(243 244 246) !important;
+}
+
+.dark .ant-input:focus:not(.ant-input-search .ant-input),
+.dark
+  .ant-input-affix-wrapper:focus:not(
+    .ant-input-search .ant-input-affix-wrapper
+  ),
+.dark .ant-input-focused:not(.ant-input-search .ant-input-focused) {
+  background-color: rgb(75 85 99) !important;
+  border-color: rgb(59 130 246) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark .ant-input:hover:not(.ant-input-search .ant-input),
+.dark
+  .ant-input-affix-wrapper:hover:not(
+    .ant-input-search .ant-input-affix-wrapper
+  ) {
+  border-color: rgb(147 197 253) !important;
+}
+
+/* Error state styling for dark mode */
+.dark .ant-input-status-error:not(.ant-input-search .ant-input-status-error),
+.dark
+  .ant-input-affix-wrapper-status-error:not(
+    .ant-input-search .ant-input-affix-wrapper-status-error
+  ) {
+  background-color: rgb(75 85 99) !important;
+  border-color: rgb(239 68 68) !important;
+}
+
+.dark
+  .ant-input-status-error:focus:not(
+    .ant-input-search .ant-input-status-error:focus
+  ),
+.dark
+  .ant-input-affix-wrapper-status-error:focus:not(
+    .ant-input-search .ant-input-affix-wrapper-status-error:focus
+  ) {
+  background-color: rgb(75 85 99) !important;
+  border-color: rgb(239 68 68) !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Select component styling for dark mode */
+.dark .ant-select:not(.ant-select-disabled) .ant-select-selector {
+  background-color: rgb(255 255 255) !important;
+  border-color: rgb(209 213 219) !important;
+  color: rgb(17 24 39) !important;
+}
+
+.dark .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+  border-color: rgb(147 197 253) !important;
+}
+
+.dark
+  .ant-select:not(.ant-select-disabled).ant-select-focused
+  .ant-select-selector {
+  border-color: rgb(59 130 246) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Search component specific styling */
+.dark .ant-input-search .ant-input {
+  background-color: rgb(255 255 255) !important;
+  border-color: rgb(209 213 219) !important;
+  color: rgb(17 24 39) !important;
+}
+
+.dark .ant-input-search .ant-input:focus {
+  background-color: rgb(255 255 255) !important;
+  border-color: rgb(59 130 246) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark .ant-input-search .ant-input:hover {
+  border-color: rgb(147 197 253) !important;
+}
+
+/* TextArea specific styling for dark mode */
+.dark .ant-input[type="textarea"] {
+  background-color: rgb(75 85 99) !important;
+  border-color: rgb(107 114 128) !important;
+  color: rgb(243 244 246) !important;
+}
+
+.dark .ant-input[type="textarea"]:focus {
+  background-color: rgb(75 85 99) !important;
+  border-color: rgb(59 130 246) !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2) !important;
+}
+
+.dark .ant-input[type="textarea"].ant-input-status-error {
+  background-color: rgb(75 85 99) !important;
+  border-color: rgb(239 68 68) !important;
+}
+
+.dark .ant-input[type="textarea"].ant-input-status-error:focus {
+  background-color: rgb(75 85 99) !important;
+  border-color: rgb(239 68 68) !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Empty component styling for dark mode */
+.dark .ant-empty {
+  color: rgb(156 163 175) !important;
+}
+
+.dark .ant-empty-description {
+  color: rgb(156 163 175) !important;
+}
+
+.dark .ant-empty-img-default {
+  opacity: 0.6;
+}
+
+.dark .ant-empty-img-default path {
+  fill: rgb(156 163 175) !important;
+}
+
+.dark .ant-empty-img-default ellipse {
+  fill: rgb(156 163 175) !important;
+}
+
+.dark .ant-empty-img-default g {
+  fill: rgb(156 163 175) !important;
+}
+
+/* Card styling for consistent borders */
+.ant-card {
+  border: 1px solid rgb(229 231 235) !important;
+}
+
+.dark .ant-card {
+  background-color: rgb(31 41 55) !important;
+  border-color: rgb(55 65 81) !important;
+}
+
+/* Modal close button theming */
+.dark .ant-modal-close {
+  color: rgb(156 163 175) !important;
+}
+
+.dark .ant-modal-close:hover {
+  color: rgb(243 244 246) !important;
+  background-color: rgb(75 85 99) !important;
+}
+
+.ant-modal-close {
+  color: rgb(107 114 128) !important;
+}
+
+.ant-modal-close:hover {
+  color: rgb(55 65 81) !important;
+  background-color: rgb(243 244 246) !important;
 }

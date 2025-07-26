@@ -7,7 +7,7 @@ export const store = configureStore({
   reducer: {
     agents: agentReducer,
     ui: uiReducer,
-    workflows: workflowReducer,
+    workflow: workflowReducer,
   },
 });
 

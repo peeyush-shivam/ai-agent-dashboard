@@ -35,26 +35,20 @@ export const agentService = {
     agentId: string,
     status: "Running" | "Idle" | "Error"
   ): Promise<Agent> {
-    await delay(200);
+    await delay(2000);
     const agent = mockAgents.find((a) => a.id === agentId);
     if (!agent) throw new Error("Agent not found");
 
     return { ...agent, status };
   },
-};
 
-/**
- * Analytics service - handles analytics and metrics
- */
-export const analyticsService = {
-  // Get dashboard metrics
-  async getDashboardMetrics() {
-    await delay(600);
-    return {
-      totalAgents: mockAgents.length,
-      runningAgents: mockAgents.filter((a) => a.status === "Running").length,
-      totalExecutions: Object.values(mockExecutionRecords).flat().length,
-      successRate: 85.2,
-    };
+  // Delete an agent
+  async deleteAgent(agentId: string): Promise<void> {
+    await delay(1000);
+    const agent = mockAgents.find((a) => a.id === agentId);
+    if (!agent) throw new Error("Agent not found");
+
+    // In a real application, this would make an API call to delete the agent
+    // For now, we just simulate the deletion
   },
 };

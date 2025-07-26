@@ -21,8 +21,21 @@ export const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    // Actions will be added here
+    setModalState: (
+      state,
+      action: PayloadAction<{ modal: keyof ModalState; isOpen: boolean }>
+    ) => {
+      const { modal, isOpen } = action.payload;
+      state.modals[modal] = isOpen;
+    },
+    setTheme: (state, action: PayloadAction<"light" | "dark">) => {
+      state.theme = action.payload;
+    },
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
   },
 });
 
+export const { setModalState, setTheme, setSearchQuery } = uiSlice.actions;
 export default uiSlice.reducer;
